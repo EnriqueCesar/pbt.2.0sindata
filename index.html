@@ -281,6 +281,86 @@ td{
   font-size:12px;
 }
 
+
+.action-row{
+  display:flex;
+  gap:10px;
+  align-items:stretch;
+  justify-content:space-between;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+
+.update-btn{
+  flex:1 1 260px;
+  border:none;
+  background:var(--green);
+  color:white;
+  padding:10px 12px;
+  border-radius:10px;
+  font-weight:900;
+  font-size:13px;
+  cursor:pointer;
+  box-shadow:0 2px 4px rgba(0,0,0,.14);
+}
+
+.update-btn:hover{background:var(--green2)}
+
+.fecha-box{
+  flex:0 0 320px;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:7px 10px;
+  display:grid;
+  grid-template-columns:90px 1fr;
+  grid-template-rows:auto auto;
+  column-gap:8px;
+  align-items:center;
+}
+
+.fecha-box label{
+  grid-row:1 / span 2;
+  color:var(--green2);
+  font-size:13px;
+  font-weight:900;
+}
+
+.fecha-box input{
+  width:100%;
+  border:1px solid #bbb;
+  border-radius:6px;
+  padding:5px;
+  font-size:13px;
+}
+
+.fecha-texto{
+  margin-top:3px;
+  color:var(--green2);
+  font-size:12px;
+  font-weight:900;
+  text-transform:capitalize;
+}
+
+.fecha-layout{
+  float:right;
+  font-size:13px;
+  font-weight:900;
+  color:white;
+}
+
+.status-msg{
+  margin-top:6px;
+  padding:7px;
+  border-radius:8px;
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  display:none;
+}
+
+.status-msg.show{display:block}
+
 @media(max-width:760px){
   .header{
     font-size:18px;
@@ -308,6 +388,7 @@ td{
     grid-template-columns:repeat(2,1fr);
   }
 
+  .fecha-box{flex:1 1 100%;grid-template-columns:70px 1fr}
   .layout{
     height:190px;
     transform:scale(.82);
@@ -449,6 +530,67 @@ function validateTotals(tab){
 
   document.getElementById(`${tab}_mixTotal`).textContent = `Total: ${mixTotal}%`;
   document.getElementById(`${tab}_mixTotal`).className = mixTotal===100 ? "total ok" : "total bad";
+
+  return {chTotal, mixTotal, valid: chTotal===100 && mixTotal===100};
+}
+
+function showStatus(tab, msg, ok=false){
+  const el = document.getElementById(`${tab}_status`);
+  if(!el) return;
+  el.textContent = msg;
+  el.className = `status-msg show ${ok ? "ok" : "bad"}`;
+}
+
+function markPending(tab){
+  showStatus(tab, "Cambios pendientes: presiona Actualizar Lay Out para aplicar sobre el layout original.", true);
+}
+
+function actualizarLayout(tab){
+  const totals = validateTotals(tab);
+
+  if(!totals.valid){
+    showStatus(tab, `No se actualizó: Distribución de canales debe ser 100% y Mix de productos debe ser 100%. Actual: Canales ${totals.chTotal}% | Mix ${totals.mixTotal}%.`);
+    return;
+  }
+
+  state[tab].partners = Number(document.getElementById(`${tab}_partners`).value);
+  updatePartnerTable(tab);
+  showStatus(tab, "Lay Out actualizado correctamente sobre el original.", true);
+}
+
+function capitalizarFecha(txt){
+  return txt.replace(/(^|\s)([a-záéíóúñ])/g, (m, esp, letra)=> esp + letra.toUpperCase());
+}
+
+function formatearFechaLarga(value){
+  if(!value) return "Sin fecha seleccionada";
+  const fecha = new Date(value + "T00:00:00");
+  return capitalizarFecha(fecha.toLocaleDateString('es-MX', {
+    weekday:'long',
+    day:'2-digit',
+    month:'long',
+    year:'numeric'
+  }));
+}
+
+function setFecha(tab){
+  const input = document.getElementById(`${tab}_fecha`);
+  if(!input) return;
+  sessionStorage.setItem(`${tab}_fechaOperacion`, input.value);
+  const texto = formatearFechaLarga(input.value);
+  const fechaTexto = document.getElementById(`${tab}_fechaTexto`);
+  const fechaLayout = document.getElementById(`${tab}_fechaLayout`);
+  if(fechaTexto) fechaTexto.textContent = texto;
+  if(fechaLayout) fechaLayout.textContent = `Fecha: ${texto}`;
+}
+
+function cargarFecha(tab){
+  const input = document.getElementById(`${tab}_fecha`);
+  if(!input) return;
+  const guardada = sessionStorage.getItem(`${tab}_fechaOperacion`);
+  const hoy = new Date().toISOString().slice(0,10);
+  input.value = guardada || hoy;
+  setFecha(tab);
 }
 
 function buildPage(tab){
@@ -461,7 +603,7 @@ function buildPage(tab){
         <div class="box-body">
           <div class="turn-grid">
             <div class="label-mini">Partners</div>
-            <select class="manual-input" id="${tab}_partners" onchange="setPartners('${tab}')">
+            <select class="manual-input" id="${tab}_partners" onchange="markPending('${tab}')">
               ${Array.from({length:c.maxPartners},(_,i)=>`
                 <option value="${i+1}" ${i+1===state[tab].partners ? "selected" : ""}>${i+1}</option>
               `).join("")}
@@ -477,7 +619,7 @@ function buildPage(tab){
             ${c.channelLabels.map((x,i)=>`
               <div class="metric">
                 <label>${x}</label>
-                <input class="${tab}-channel" type="number" min="0" max="100" step="1" value="${c.channelDefaults[i]}" oninput="validateTotals('${tab}')">
+                <input class="${tab}-channel" type="number" min="0" max="100" step="1" value="${c.channelDefaults[i]}" oninput="validateTotals('${tab}'); markPending('${tab}')">
               </div>
             `).join("")}
           </div>
@@ -492,7 +634,7 @@ function buildPage(tab){
             ${categories.map((x,i)=>`
               <div class="metric">
                 <label>${x}</label>
-                <input class="${tab}-mix" type="number" min="0" max="100" step="1" value="${c.mixDefaults[i]}" oninput="validateTotals('${tab}')">
+                <input class="${tab}-mix" type="number" min="0" max="100" step="1" value="${c.mixDefaults[i]}" oninput="validateTotals('${tab}'); markPending('${tab}')">
               </div>
             `).join("")}
           </div>
@@ -501,7 +643,17 @@ function buildPage(tab){
       </div>
     </div>
 
-    <div class="section-title">Plan de distribución recomendado — ${c.title}</div>
+    <div class="action-row">
+      <button class="update-btn" onclick="actualizarLayout('${tab}')">↻ Actualizar Lay Out</button>
+      <div class="fecha-box">
+        <label for="${tab}_fecha">Fecha</label>
+        <input type="date" id="${tab}_fecha" onchange="setFecha('${tab}')">
+        <div class="fecha-texto" id="${tab}_fechaTexto">Sin fecha seleccionada</div>
+      </div>
+    </div>
+    <div class="status-msg" id="${tab}_status"></div>
+
+    <div class="section-title">Plan de distribución recomendado — ${c.title}<span class="fecha-layout" id="${tab}_fechaLayout">Fecha: Sin fecha seleccionada</span></div>
 
     <div class="layout-wrap">
       <div class="layout" id="${tab}_layout">${tab==="cafe" ? cafeLayout() : dtLayout()}</div>
@@ -522,6 +674,7 @@ function buildPage(tab){
 
   validateTotals(tab);
   updatePartnerTable(tab);
+  cargarFecha(tab);
 }
 
 function getRoutineRows(tab){
