@@ -341,14 +341,6 @@ td{
   font-weight:900;
   text-transform:capitalize;
 }
-
-.fecha-layout{
-  float:right;
-  font-size:13px;
-  font-weight:900;
-  color:white;
-}
-
 .status-msg{
   margin-top:6px;
   padding:7px;
@@ -579,9 +571,7 @@ function setFecha(tab){
   sessionStorage.setItem(`${tab}_fechaOperacion`, input.value);
   const texto = formatearFechaLarga(input.value);
   const fechaTexto = document.getElementById(`${tab}_fechaTexto`);
-  const fechaLayout = document.getElementById(`${tab}_fechaLayout`);
   if(fechaTexto) fechaTexto.textContent = texto;
-  if(fechaLayout) fechaLayout.textContent = `Fecha: ${texto}`;
 }
 
 function cargarFecha(tab){
@@ -653,7 +643,7 @@ function buildPage(tab){
     </div>
     <div class="status-msg" id="${tab}_status"></div>
 
-    <div class="section-title">Plan de distribución recomendado — ${c.title}<span class="fecha-layout" id="${tab}_fechaLayout">Fecha: Sin fecha seleccionada</span></div>
+    <div class="section-title">Plan de distribución recomendado — ${c.title}</div>
 
     <div class="layout-wrap">
       <div class="layout" id="${tab}_layout">${tab==="cafe" ? cafeLayout() : dtLayout()}</div>
