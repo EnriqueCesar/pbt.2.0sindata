@@ -353,6 +353,50 @@ td{
 
 .status-msg.show{display:block}
 
+
+.periodo-row{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:12px;
+  margin-bottom:12px;
+}
+.periodo-table{
+  display:grid;
+  grid-template-columns:170px 1fr;
+  border:1px solid var(--line);
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+}
+.periodo-table .head{
+  grid-column:1/3;
+  background:var(--green);
+  color:white;
+  padding:7px;
+  font-weight:900;
+  text-align:center;
+}
+.periodo-table label{
+  padding:8px 10px;
+  font-style:italic;
+  border-top:1px solid #ddd;
+}
+.periodo-table input{
+  border:none;
+  border-top:1px solid #ddd;
+  background:#d9d9d9;
+  padding:8px;
+  font-weight:700;
+}
+.cell-tag{
+  display:inline-block;
+  margin-left:4px;
+  color:#555;
+  font-size:10px;
+  font-weight:700;
+}
+@media(max-width:760px){.periodo-row{grid-template-columns:1fr}}
+
 @media(max-width:760px){
   .header{
     font-size:18px;
@@ -445,15 +489,15 @@ const ROUTINES = {
   cafe:{
     1:[["A","POS 1","Sí","Rutina café filtrado / té"]],
     2:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"]],
-    3:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"],["C","Horno 1","Sí","Rutina alimentos calientes"]],
-    4:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"],["C","CBS 1","Sí","Rutina CBS"],["D","Horno 1","Sí","Rutina alimentos calientes"]],
-    5:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"],["C","CBS 1","Sí","Rutina CBS"],["D","Horno 1","Sí","Rutina alimentos calientes"],["E","Hand off 1","Sí","Rutina Hand off"]],
-    6:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas, Rutina CBS"],["D","Bar 2","Sí","Rutina Bebidas, Rutina CBS"],["E","Horno 1","Sí","Rutina alimentos calientes"],["F","Soporte","No","Customer Support, Flexible"]],
-    7:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","Horno 1","Sí","Rutina alimentos calientes"],["G","Soporte","No","Flexible"]],
-    8:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","Horno 1","Sí","Rutina alimentos calientes"],["G","Hand off 1","Sí","Rutina Hand off"],["H","Soporte","No","Flexible"]],
-    9:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","CBS 2","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte","No","Flexible"]],
-    10:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","CBS 2","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte","No","Flexible"],["J","Soporte","No","Flexible"]],
-    11:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","CBS 2","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte","No","Flexible"],["J","Soporte","No","Flexible"],["K","Soporte","No","Flexible"]]
+    3:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"],["C","CBS 1","Sí","Rutina CBS"]],
+    4:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"],["C","CBS 1","Sí","Rutina CBS"],["D","Soporte Alto","No","Rutina café filtrado / té, Partner Support, Flexible"]],
+    5:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","Bar 1","Sí","Rutina Bebidas"],["C","CBS 1","Sí","Rutina CBS"],["D","Soporte Alto","No","Rutina café filtrado / té, Rutina alimentos calientes, Partner Support, Flexible"],["E","Soporte Bajo","No","Customer Support, Flexible"]],
+    6:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas, Rutina CBS"],["D","Bar 2","Sí","Rutina Bebidas, Rutina CBS"],["E","Horno 1","Sí","Rutina alimentos calientes"],["F","Soporte Bajo","No","Customer Support, Flexible"]],
+    7:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","Horno 1","Sí","Rutina alimentos calientes"],["G","Soporte Bajo","No","Flexible"]],
+    8:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","Horno 1","Sí","Rutina alimentos calientes"],["G","Hand off 1","Sí","Rutina Hand off"],["H","Soporte Bajo","No","Flexible"]],
+    9:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","CBS 2","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte Bajo","No","Flexible"]],
+    10:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","CBS 2","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte Bajo","No","Flexible"],["J","Soporte Alto","No","Flexible"]],
+    11:[["A","POS 1","Sí","Rutina café filtrado / té"],["B","POS 2","Sí","Rutina café filtrado / té"],["C","Bar 1","Sí","Rutina Bebidas"],["D","Bar 2","Sí","Rutina Bebidas"],["E","CBS 1","Sí","Rutina CBS"],["F","CBS 2","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte Bajo","No","Flexible"],["J","Soporte Alto","No","Flexible"],["K","Soporte Extra","No","Flexible"]]
   },
   dt:{
     1:[["A","DTR","Sí","Función DTR"]],
@@ -461,14 +505,14 @@ const ROUTINES = {
     3:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","Bar 1","Sí","Rutina Bebidas"]],
     4:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"]],
     5:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Horno 1","Sí","Rutina alimentos calientes"]],
-    6:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte","No","Customer Support, Flexible"]],
+    6:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte Alto","No","Customer Support, Flexible"]],
     7:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","CBS 1","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"]],
     8:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","CBS 1","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"]],
-    9:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","CBS 1","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte","No","Customer Support, Flexible"]],
-    10:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"]],
-    11:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"],["K","Soporte","No","Customer Support, Flexible"]],
-    12:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"],["K","Soporte","No","Customer Support, Flexible"],["L","Soporte","No","Flexible"]],
-    13:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"],["K","Soporte","No","Customer Support, Flexible"],["L","Soporte","No","Flexible"],["M","Soporte","No","Flexible"]]
+    9:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","CBS 1","Sí","Rutina CBS"],["G","Horno 1","Sí","Rutina alimentos calientes"],["H","Hand off 1","Sí","Rutina Hand off"],["I","Soporte Bajo","No","Customer Support, Flexible"]],
+    10:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte Alto","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"]],
+    11:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte Alto","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"],["K","Soporte Bajo","No","Customer Support, Flexible"]],
+    12:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte Alto","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"],["K","Soporte Bajo","No","Customer Support, Flexible"],["L","Soporte Extra","No","Flexible"]],
+    13:[["A","DTR","Sí","Función DTR"],["B","DTO","Sí","Función DTO"],["C","POS 1","Sí","Rutina café filtrado / té"],["D","Bar 1","Sí","Rutina Bebidas"],["E","Bar 2","Sí","Rutina Bebidas"],["F","Soporte Alto","No","Rutina Bebidas, Flexible"],["G","CBS 1","Sí","Rutina CBS"],["H","CBS 2","Sí","Rutina CBS"],["I","Horno 1","Sí","Rutina alimentos calientes"],["J","Hand off 1","Sí","Rutina de Hand off"],["K","Soporte Bajo","No","Customer Support, Flexible"],["L","Soporte Extra","No","Flexible"],["M","Soporte Extra 2","No","Flexible"]]
   }
 };
 
@@ -479,11 +523,13 @@ const POS = {
     "POS 2":{left:62,top:40,w:7,h:10,fijo:true},
     "Bar 1":{left:20,top:40,w:7,h:10,fijo:true},
     "Bar 2":{left:34,top:40,w:7,h:10,fijo:true},
-    "CBS 1":{left:16,top:23,w:7,h:10,fijo:true},
-    "CBS 2":{left:25,top:23,w:7,h:10,fijo:true},
+    "CBS 1":{left:20,top:20,w:7,h:10,fijo:true},
+    "CBS 2":{left:28,top:20,w:7,h:10,fijo:true},
     "Horno 1":{left:80,top:10,w:7,h:10,fijo:true},
     "Hand off 1":{left:10,top:61,w:7,h:10,fijo:true},
-    "Soporte":{left:47,top:78,w:7,h:10,fijo:false}
+    "Soporte Alto":{left:48,top:31,w:7,h:10,fijo:false},
+    "Soporte Bajo":{left:47,top:78,w:7,h:10,fijo:false},
+    "Soporte Extra":{left:56,top:78,w:7,h:10,fijo:false}
   },
   dt:{
     "DTR":{left:21,top:10,w:7,h:9,fijo:true},
@@ -496,10 +542,10 @@ const POS = {
     "CBS 2":{left:16,top:28,w:7,h:9,fijo:true},
     "Horno 1":{left:86,top:37,w:7,h:9,fijo:true},
     "Hand off 1":{left:16,top:63,w:7,h:9,fijo:true},
-    "Soporte":{left:39,top:63,w:7,h:9,fijo:false},
-    "Soporte2":{left:51,top:82,w:7,h:9,fijo:false},
-    "Soporte3":{left:60,top:82,w:7,h:9,fijo:false},
-    "Soporte4":{left:69,top:82,w:7,h:9,fijo:false}
+    "Soporte Alto":{left:39,top:63,w:7,h:9,fijo:false},
+    "Soporte Bajo":{left:51,top:82,w:7,h:9,fijo:false},
+    "Soporte Extra":{left:60,top:82,w:7,h:9,fijo:false},
+    "Soporte Extra 2":{left:69,top:82,w:7,h:9,fijo:false}
   }
 };
 
@@ -587,12 +633,25 @@ function buildPage(tab){
   const c = config[tab];
 
   document.getElementById(tab).innerHTML = `
+    <div class="periodo-row">
+      <div class="periodo-table">
+        <div class="head">Periodo de tiempo</div>
+        <label>Rango de fechas <span class="cell-tag">D8</span></label>
+        <input id="${tab}_rango" placeholder="Ej. 05/06/2026 - 11/06/2026">
+        <label>Días de la semana <span class="cell-tag">D9</span></label>
+        <input id="${tab}_dias" placeholder="Ej. Lunes a viernes">
+        <label>Turno <span class="cell-tag">D10</span></label>
+        <input id="${tab}_turno" placeholder="Ej. Morning / Lunch / Afternoon">
+      </div>
+      <div></div>
+    </div>
+
     <div class="manual-top">
       <div class="box">
         <div class="box-title">Información de turno</div>
         <div class="box-body">
           <div class="turn-grid">
-            <div class="label-mini">Partners</div>
+            <div class="label-mini">Partners <span class="cell-tag">D14</span></div>
             <select class="manual-input" id="${tab}_partners" onchange="markPending('${tab}')">
               ${Array.from({length:c.maxPartners},(_,i)=>`
                 <option value="${i+1}" ${i+1===state[tab].partners ? "selected" : ""}>${i+1}</option>
@@ -608,7 +667,7 @@ function buildPage(tab){
           <div class="metric-grid ${tab==="cafe" ? "channels-cafe" : "channels-dt"}">
             ${c.channelLabels.map((x,i)=>`
               <div class="metric">
-                <label>${x}</label>
+                <label>${x}<span class="cell-tag">${tab==="dt" ? ["G14","H14","I14"][i] : ["G14","H14"][i]}</span></label>
                 <input class="${tab}-channel" type="number" min="0" max="100" step="1" value="${c.channelDefaults[i]}" oninput="validateTotals('${tab}'); markPending('${tab}')">
               </div>
             `).join("")}
@@ -623,7 +682,7 @@ function buildPage(tab){
           <div class="metric-grid mix-grid">
             ${categories.map((x,i)=>`
               <div class="metric">
-                <label>${x}</label>
+                <label>${x}<span class="cell-tag">${["K14","L14","K15","L15","K16"][i]}</span></label>
                 <input class="${tab}-mix" type="number" min="0" max="100" step="1" value="${c.mixDefaults[i]}" oninput="validateTotals('${tab}'); markPending('${tab}')">
               </div>
             `).join("")}
@@ -681,22 +740,37 @@ function updatePartnerTable(tab){
   const rows = getRoutineRows(tab);
 
   document.getElementById(`${tab}_tbody`).innerHTML = rows.map(r=>`
-    <tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>
+    <tr><td>${r[0]}</td><td>${cleanStation(r[1])}</td><td>${r[2]}</td><td>${r[3]}</td></tr>
   `).join("");
 
   const layer = document.getElementById(`${tab}_markers`);
-  layer.innerHTML = rows.map((r,idx)=>{
+  layer.innerHTML = rows.map((r)=>{
     let p = POS[tab][r[1]];
-
-    if(tab==="dt" && r[0]==="K") p = POS.dt["Soporte2"];
-    if(tab==="dt" && r[0]==="L") p = POS.dt["Soporte3"];
-    if(tab==="dt" && r[0]==="M") p = POS.dt["Soporte4"];
-
-    if(!p) p = POS[tab]["Soporte"];
+    if(!p) p = POS[tab]["Soporte Bajo"] || POS[tab]["Soporte Alto"];
 
     const cls = p.fijo ? "partner" : "support";
     return `<div class="area ${cls}" data-letter="${r[0]}" style="left:${p.left}%;top:${p.top}%;width:${p.w}%;height:${p.h}%">${r[0]}</div>`;
   }).join("");
+}
+
+function cleanStation(x){
+  return String(x)
+    .replace("Soporte Alto","Soporte")
+    .replace("Soporte Bajo","Soporte")
+    .replace("Soporte Extra 2","Soporte")
+    .replace("Soporte Extra","Soporte");
+}
+
+function actualizarLayout(){
+  render(activeTab);
+}
+
+function cleanStation(x){
+  return String(x)
+    .replace("Soporte Alto","Soporte")
+    .replace("Soporte Bajo","Soporte")
+    .replace("Soporte Extra 2","Soporte")
+    .replace("Soporte Extra","Soporte");
 }
 
 function showTab(tab){
