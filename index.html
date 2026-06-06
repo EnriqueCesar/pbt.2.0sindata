@@ -59,7 +59,7 @@ function render(tab){
   routines.forEach(r=>supportByPartner[r[0]]=r[4]===1);
   const grid=document.getElementById(tab+'_grid');
   grid.className='excel-grid '+(tab==='cafe'?'cafe-grid':'dt-grid');
-  const visibleItems=tmpl.items.filter(it=>!(tab==='cafe'&&it.r>=25&&it.r<=27));
+  const visibleItems=tmpl.items.filter(it=>it.r!==17 && !(tab==='cafe'&&it.r>=25&&it.r<=27));
   const tabletMoveValue=tabletOn ? (coords[`${tmpl.layout}:3:4`]||'') : '';
   grid.innerHTML=visibleItems.map(it=>{
     let value=it.v||'';
